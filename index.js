@@ -5,8 +5,6 @@ let scrape = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://lista.mercadolivre.com.br/defeito_OrderId_PRICE*DESC_PublishedToday_YES');
-    // await page.goto('http://books.toscrape.com/')
-
 
     const pageLinks = await page.evaluate(() => {
         let links = []
