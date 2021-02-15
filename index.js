@@ -39,13 +39,12 @@ let scrape = async () => {
 scrape().then((result) => {
     result = result[0]    
     file = JSON.parse(fs.readFileSync('result.json'))
-    let newResult = result
     
     if (file.length > 0) {
-        newResult = result.filter(resultItem => file.some(fileItem => fileItem.id != resultItem.id))        
+        result.filter(resultItem => file.some(fileItem => fileItem.id != resultItem.id))        
     }
 
-    fs.writeFile('result.json', JSON.stringify(newResult), function (err) {
+    fs.writeFile('result.json', JSON.stringify(result), function (err) {
         if (err) throw err;
         console.log('Saved!');
     });
