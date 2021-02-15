@@ -39,25 +39,14 @@ let scrape = async () => {
 scrape().then((result) => {
     result = result[0]    
     file = JSON.parse(fs.readFileSync('result.json'))
-    let difference = result
-        .filter(x => !file.includes(x))
-        .concat(file.filter(x => !result.includes(x)));
+    let newResult = result
+    
+    if (file.length > 0) {
+        newResult = result.filter(resultItem => file.some(fileItem => fileItem.id != resultItem.id))        
+    }
 
-    fs.writeFile('result.json', JSON.stringify(difference), function (err) {
+    fs.writeFile('result.json', JSON.stringify(newResult), function (err) {
         if (err) throw err;
         console.log('Saved!');
     });
 })
-
-
-// let file1 = JSON.parse(fs.readFileSync('result.json','utf8'))
-// let file2 = JSON.parse(fs.readFileSync('result2.json', 'utf8'))
-
-// let difference = file1
-//     .filter(x => !file2.includes(x))
-//     .concat(file2.filter(x => !file1.includes(x)));
-
-// fs.writeFile('diff.json', JSON.stringify(difference), function (err) {
-//     if (err) throw err;
-//     console.log('Saved!');
-// });
